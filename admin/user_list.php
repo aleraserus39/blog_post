@@ -114,10 +114,10 @@ if(!empty($_POST['search'])){
                         <a href="#" class="btn btn-danger">Delete</a> -->
                         <div class="btn-group">
                           <div class="container">
-                            <a href="user_edit.php?id=<?php echo $value['id']?>" type="button" class="btn btn-warning <?php if($_SESSION['user_id'] != $id){echo "disabled";}?>" >Edit</a>
+                            <a href="user_edit.php?id=<?php echo $value['id']?>" type="button" class="btn btn-warning" >Edit</a>
                           </div>
                           <div class="container">
-                            <a href="user_delete.php?id=<?php echo $value['id']?>" type="button" class="btn btn-danger <?php if($_SESSION['user_id'] != $id){echo "disabled";}?>" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
+                            <a href="user_delete.php?id=<?php echo $value['id']?>" type="button" class="btn btn-danger " onclick="return confirm('Are you sure you want to delete?');">Delete</a>
                           </div>
                         </div>
                       </td>

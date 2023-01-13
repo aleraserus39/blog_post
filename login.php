@@ -19,7 +19,7 @@ if($_POST){
 
         
 
-        if($user['password']== $password){
+        if($user['password']== password_verify($password, $user['password'])){
             $_SESSION['user_id']= $user['id'];
             $_SESSION['login_time']= time();
 
@@ -28,8 +28,10 @@ if($_POST){
         }else{
           echo "<script>alert('Password is not correct. Try again!');</script>";
         }
+    }else{
+      echo "<script>alert('Email doesn\'t exit. Please register first.');</script>";
     }
-    echo "<script>alert('Email doesn\'t exit. Please register first.');</script>";
+    
 
 }
 

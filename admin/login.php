@@ -16,7 +16,7 @@ if($_POST){
     // exit();
 
     if($user){
-        if($user['password']== $password){
+        if($user['password']== password_verify($password,$user['password'])){
             $_SESSION['role']= $user['role'];
             $_SESSION['user_id']= $user['id'];
             $_SESSION['login_time']= time();

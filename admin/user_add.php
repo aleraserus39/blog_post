@@ -26,7 +26,7 @@ if($_POST){
     
       $name= $_POST['name'];
       $email= $_POST['email'];
-      $password= $_POST['password'];
+      $password= password_hash($_POST['password'],PASSWORD_DEFAULT);
       $role= $_POST['gridRadios'];
     
       $stat= $pdo->prepare("INSERT INTO users (name,email,password,role) VALUES (:name,:email,:password,:role)" );

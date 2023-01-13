@@ -29,7 +29,7 @@ session_start();
         if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['gridRadios'])){
             $name= $_POST['name'];
             $email= $_POST['email'];
-            $password= $_POST['password'];
+            $password= password_hash($_POST['password'],PASSWORD_DEFAULT);
             $role= $_POST['gridRadios'];
     
             $stat= $pdo->prepare("UPDATE users SET name='$name',email='$email',password='$password',role='$role' WHERE id=".$_GET['id']);
