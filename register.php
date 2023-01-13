@@ -4,6 +4,21 @@ session_start();
 require "config_file/config.php";
 
 if($_POST){
+  if(empty($_POST['name']) || empty($_POST['email']) || empty($_POST['password'])){
+    if(empty($_POST['name'])){
+      $nameError= "Name cann't be null";
+    }
+    if(empty($_POST['email'])){
+      $emailError= "Email cann't be null";
+    }
+    if(empty($_POST['password'])){
+      $passwordError= "Password cann't be null";
+    }
+  }elseif(strlen($_POST['password']) < 6){
+    if(strlen($_POST['password']) < 6){
+      $passwordError= "Password must above 6 character.";
+    }
+  }else{
     $name= $_POST['name'];
     $email= $_POST['email'];
     $password= $_POST['password'];
@@ -24,9 +39,7 @@ if($_POST){
     if($result){
         echo("<script>alert('Successfully Registered.');window.location.href='login.php'</script>");
     }
-
-   
-
+  }
 }
 
 ?>
@@ -57,16 +70,16 @@ if($_POST){
     <div class="card-body login-card-body">
     <form action="register.php" method="post" enctype="" autocomplete="off">
             <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" name="name" class="form-control" required value="">
+                <label for="name">Name</label><p style="color:red;"><?php echo !isset($nameError) ? "" : '*'.$nameError;?></p>
+                <input type="text" name="name" class="form-control"  value="">
             </div>
             <div class="form-group">
-                <label for="content">Email</label>
-                <input type="email" name="email" class="form-control" required value="" autocomplete="false">
+                <label for="content">Email</label><p style="color:red;"><?php echo !isset($emailError) ? "" : '*'.$emailError;?></p>
+                <input type="email" name="email" class="form-control"  value="" autocomplete="false">
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" name="password" class="form-control" required value="" autocomplete="false">
+                <label for="password">Password</label><p style="color:red;"><?php echo !isset($passwordError) ? "" : '*'.$passwordError;?></p>
+                <input type="password" name="password" class="form-control"  value="" autocomplete="false">
             </div>
            
             <input type="submit" name="register" class="btn btn-success btn-block" value="Register">

@@ -7,34 +7,42 @@ session_start();
  if(empty($_SESSION['user_id']) && empty($_SESSION['login_time'])){
     header("Location: user_list.php");
   }
-// echo $_SESSION['login_time'];
-// exit();
 
   if($_POST){
 
-    if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['gridRadios'])){
-        $name= $_POST['name'];
-        $email= $_POST['email'];
-        $password= $_POST['password'];
-        $role= $_POST['gridRadios'];
-
-        $stat= $pdo->prepare("UPDATE users SET name='$name',email='$email',password='$password',role='$role' WHERE id=".$_GET['id']);
-        $success= $stat->execute();
-
-        if($success){
-            echo "<script>alert('Successfully Updated.');window.location.href='user_list.php'</script>";
+    if(empty($_POST['name']) || empty($_POST['email']) || empty($_POST['password'])){
+        if(empty($_POST['name'])){
+          $nameError= "Name cann't be null";
         }
+        if(empty($_POST['email'])){
+          $emailError= "Email cann't be null";
+        }
+        if(empty($_POST['password'])){
+          $passwordError= "Password cann't be null";
+        }
+               
+    }elseif(strlen($_POST['password']) < 6){
+        if(strlen($_POST['password']) < 6){
+            $passwordError= "Password must above 6 character.";
+          }
     }else{
-            echo "<script>alert('Form is not completed. Try Again!');</script>";
-         }
+        if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['gridRadios'])){
+            $name= $_POST['name'];
+            $email= $_POST['email'];
+            $password= $_POST['password'];
+            $role= $_POST['gridRadios'];
     
+            $stat= $pdo->prepare("UPDATE users SET name='$name',email='$email',password='$password',role='$role' WHERE id=".$_GET['id']);
+            $success= $stat->execute();
+    
+            if($success){
+                echo "<script>alert('Successfully Updated.');window.location.href='user_list.php'</script>";
+            }
+        }else{
+                echo "<script>alert('Form is not completed. Try Again!');</script>";
+        }
+    }
 
-        
-    
-        
-    
-        
-    //  }
 
   }
 
@@ -78,16 +86,16 @@ session_start();
                     <form action="" method="post" >
                         <input type="hidden" name="id" class=''>
                         <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" name="name" class="form-control" required value="<?php echo $result['name']?>">
+                            <label for="name">Name</label><p style="color:red;"><?php echo !isset($nameError) ? "" : '*'.$nameError;?></p>
+                            <input type="text" name="name" class="form-control"  value="<?php echo $result['name']?>">
                         </div>
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" class="form-control" required value="<?php echo $result['email']?>">
+                            <label for="email">Email</label><p style="color:red;"><?php echo !isset($emailError) ? "" : '*'.$emailError;?></p>
+                            <input type="email" name="email" class="form-control"  value="<?php echo $result['email']?>">
                         </div>
                         <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" class="form-control" required value="<?php echo $result['password']?>">
+                            <label for="password">Password</label><p style="color:red;"><?php echo !isset($passwordError) ? "" : '*'.$passwordError;?></p>
+                            <input type="password" name="password" class="form-control"  value="<?php echo $result['password']?>">
                         </div>
                         <fieldset class="form-group" required>
                             <div class="row">

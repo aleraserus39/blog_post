@@ -7,11 +7,22 @@ if(empty($_SESSION['username']) && empty($_SESSION['login_time'])){
 }
 
 if($_POST){
-
-  
- 
-
-  if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['gridRadios'])){
+  if(empty($_POST['name']) || empty($_POST['email']) || empty($_POST['password'])){
+    if(empty($_POST['name'])){
+      $nameError= "Name cann't be null";
+    }
+    if(empty($_POST['email'])){
+      $emailError= "Email cann't be null";
+    }
+    if(empty($_POST['password'])){
+      $passwordError= "Password cann't be null";
+    }
+  }elseif(strlen($_POST['password']) < 6){
+    if(strlen($_POST['password']) < 6){
+      $passwordError= "Password must above 6 character.";
+    }
+  }else{
+    if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['gridRadios'])){
     
       $name= $_POST['name'];
       $email= $_POST['email'];
@@ -22,19 +33,15 @@ if($_POST){
       $result =$stat->execute(
         array(':name'=>$name,':email'=>$email,':password'=>$password,'role'=>$role)
       );
-
-
-    if($result){
-      echo("<script>alert('Successfully created.');window.location.href='user_list.php'</script>");
+      if($result){
+        echo("<script>alert('Successfully created.');window.location.href='user_list.php'</script>");
+      }
+    }else{
+      echo("<script>alert('From is not completed. Please try again!');</script>");
     }
-  }else{
-    echo("<script>alert('From is not completed. Please try again!');</script>");
   }
- 
+
   
-
-
-      
 }
 
 
@@ -65,19 +72,19 @@ if($_POST){
                     <div class="card-body">
         <form action="user_add.php" method="post">
             <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label" >Name</label>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label><p style="color:red;"><?php echo !isset($nameError) ? "" : '*'.$nameError;?></p>
                 <div class="col-sm-10">
-                <input type="text" name="name" class="form-control" id="inputEmail3" placeholder="Name" required>
+                <input type="text" name="name" class="form-control" id="inputEmail3" placeholder="Name" required >
                 </div>
             </div>
             <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label><br/><p style="color:red;"><?php echo !isset($emailError) ? "" : '*'.$emailError;?></p>
                 <div class="col-sm-10">
                 <input type="email" name="email" class="form-control" id="inputEmail3" placeholder="Email" required>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+                <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label><br/><p style="color:red;"><?php echo !isset($passwordError) ? "" : '*'.$passwordError;?></p>
                 <div class="col-sm-10">
                 <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="Password" required>
                 </div>

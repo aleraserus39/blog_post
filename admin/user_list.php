@@ -92,7 +92,7 @@ if(!empty($_POST['search'])){
 
                     $total_pages= ceil(count($rawResult) / $showRecs);
 
-                    $stat= $pdo->prepare("SELECT * FROM users ORDER BY id ASC LIMIT $offset,$showRecs");
+                    $stat= $pdo->prepare("SELECT * FROM users ORDER BY id DESC LIMIT $offset,$showRecs");
                     $stat->execute();
                     $result= $stat->fetchAll();
                     }

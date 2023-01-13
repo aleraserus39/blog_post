@@ -9,41 +9,50 @@ session_start();
   }
 
 if($_POST){
-    $title= $_POST['title'];
-    $content= $_POST['content'];
-    $filename= $_FILES['image']['name'];
-    // echo $filename;
+    if(empty($_POST['title']) || empty($_POST['content'])){
+        if(empty($_POST['title'])){
+          $titleError= "Title cann't be null";
+        }
+        if(empty($_POST['content'])){
+          $contentError= "Content cann't be null";
+        }
+    }else{
+        $title= $_POST['title'];
+        $content= $_POST['content'];
+        $filename= $_FILES['image']['name'];
 
-  if($filename){
-    $target_file= "../images/".$filename;
-    $imageFileType= pathinfo($target_file,PATHINFO_EXTENSION);
+
+        if($filename){
+            $target_file= "../images/".$filename;
+            $imageFileType= pathinfo($target_file,PATHINFO_EXTENSION);
 
 
-    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif"){
-    echo "<script>alert('Sorry, only JPG, JPEG, PNG & GIF files are allowed');</script>";
-        }else{
-            // print_r($_FILES['image']['tmp_name']);
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif"){
+            echo "<script>alert('Sorry, only JPG, JPEG, PNG & GIF files are allowed');</script>";
+            }else{
+                    // print_r($_FILES['image']['tmp_name']);
             move_uploaded_file($_FILES['image']['tmp_name'],$target_file);
 
-        $stmt= $pdo->prepare("UPDATE posts SET title='$title',content='$content',image='$filename' WHERE post_id=".$_GET['id']);
-        $success= $stmt->execute();
+            $stmt= $pdo->prepare("UPDATE posts SET title='$title',content='$content',image='$filename' WHERE post_id=".$_GET['id']);
+            $success= $stmt->execute();
 
-        if($success){
-            echo "<script>alert('Successfully Updated.');window.location.href='index.php'</script>";
-        }
+            if($success){
+                echo "<script>alert('Successfully Updated.');window.location.href='index.php'</script>";
+            }
         
-    }
+            }
+        }else{
+            $stmt= $pdo->prepare("UPDATE posts SET title='$title',content='$content' WHERE post_id=".$_GET['id']);
+            $success= $stmt->execute();
 
-
-  }else{
-    $stmt= $pdo->prepare("UPDATE posts SET title='$title',content='$content' WHERE post_id=".$_GET['id']);
-    $success= $stmt->execute();
-
-    if($success){
-        echo "<script>alert('Successfully Updated.');window.location.href='index.php'</script>";
-    }
+            if($success){
+                echo "<script>alert('Successfully Updated.');window.location.href='index.php'</script>";
+            }
 }
+      }
+
+    
 
 }
 
@@ -88,11 +97,11 @@ if($_POST){
                     <form action="" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="post_id" class=''>
                         <div class="form-group">
-                            <label for="title">Title</label>
+                            <label for="title">Title</label><p style="color:red;"><?php echo !isset($titleError) ? "" : '*'.$titleError;?></p>
                             <input type="text" name="title" class="form-control" required value="<?php echo $result['title']?>">
                         </div>
                         <div class="form-group">
-                            <label for="content">Content</label>
+                            <label for="content">Content</label><p style="color:red;"><?php echo !isset($contentError) ? "" : '*'.$contentError;?></p>
                             <textarea class="form-control"  rows="5" name='content' required ><?php echo $result['content']?></textarea>
                         </div>
                         <div class="form-group">
