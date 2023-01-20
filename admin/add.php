@@ -1,12 +1,20 @@
 <?php 
 session_start();
 require "../config_file/config.php";
+require "../config_file/common.php";
 
 if(empty($_SESSION['username']) && empty($_SESSION['login_time'])){
   header("Location: login.php");
 }
 
 if($_POST){
+
+  //csrf protection
+  // if (!hash_equals($_SESSION['csrf'], $_POST['csrf'])) die();
+  // echo $_POST['csrf']; 
+  // echo $_SESSION['csrf'];
+  // exit();
+  
   if(empty($_POST['title']) || empty($_POST['content']) || empty($_FILES['image']['name'])){
     if(empty($_POST['title'])){
       $titleError= "Title cann't be null";
@@ -71,6 +79,7 @@ if($_POST){
                 <div class="card">
                     <div class="card-body">
                     <form action="add.php" method="post" enctype="multipart/form-data">
+                    <input name="csrf" type="hidden" value="<?php echo ($_SESSION['csrf']); ?>">
                         <div class="form-group">
                             <label for="title">Title</label><p style="color:red;"><?php echo !isset($titleError) ? "" : '*'.$titleError;?></p>
                             <input type="text" name="title" class="form-control" required>

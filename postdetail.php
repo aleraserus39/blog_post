@@ -1,6 +1,7 @@
 <?php 
 session_start();
 require "config_file/config.php";
+require "config_file/common.php";
 
 if(empty($_SESSION['user_id']) && empty($_SESSION['login_time'])){
   header("Location: login.php");
@@ -149,6 +150,7 @@ if(isset($_POST['comment']) && ! empty($_POST['comment'])){
                <!-- /.card-footer -->
                <div class="card-footer">
                 <form action="" method="post">
+                <input name="csrf" type="hidden" value="<?php echo ($_SESSION['csrf']); ?>">
                   <div class="img-push">
                     <input type="text" name='comment' class="form-control form-control-sm" placeholder="Press enter to post comment">
                   </div>

@@ -2,6 +2,7 @@
 session_start();
 
 require "../config_file/config.php";
+require "../config_file/common.php";
 
 if($_POST){
     $email= $_POST['email'];
@@ -57,6 +58,8 @@ if($_POST){
       <p class="login-box-msg">Login in to start your session</p>
 
       <form action="login.php" method="post">
+      <input type="hidden" name="post_id" class=''>
+      <input name="csrf" type="hidden" value="<?php echo ($_SESSION['csrf']); ?>">
         <div class="input-group mb-3">
           <input type="email" name='email'class="form-control" placeholder="Email">
           <div class="input-group-append">

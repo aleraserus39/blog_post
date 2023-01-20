@@ -3,6 +3,7 @@
 session_start();
 
  require "../config_file/config.php";
+ require "../config_file/common.php";
 
  if(empty($_SESSION['username']) && empty($_SESSION['login_time'])){
     header("Location: login.php");
@@ -95,6 +96,7 @@ if($_POST){
 
                     ?>
                     <form action="" method="post" enctype="multipart/form-data">
+                    <input name="csrf" type="hidden" value="<?php echo ($_SESSION['csrf']); ?>">
                         <input type="hidden" name="post_id" class=''>
                         <div class="form-group">
                             <label for="title">Title</label><p style="color:red;"><?php echo !isset($titleError) ? "" : '*'.$titleError;?></p>

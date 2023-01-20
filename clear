@@ -1,0 +1,17 @@
+[33mcommit 0939554dc47b0ea3080a22ed06b3c37c5f192cc2[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: unknown <nanthuzarhlaing.39@gmailcom>
+Date:   Sat Jan 14 00:10:14 2023 +0800
+
+    after password hashing
+
+[33mcommit ffeeccd6bb4953e789198b7876770542c3e04af9[m
+Author: unknown <nanthuzarhlaing.39@gmailcom>
+Date:   Fri Jan 13 23:27:51 2023 +0800
+
+    after backend validation
+
+[33mcommit 01e209c9181ceb2d873706fb8e1891df33f2ab76[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: unknown <nanthuzarhlaing.39@gmailcom>
+Date:   Wed Jan 11 22:04:38 2023 +0800
+
+    blog post before security concern

@@ -1,12 +1,15 @@
 <?php 
 session_start();
 require "../config_file/config.php";
+require "../config_file/common.php";
 
 if(empty($_SESSION['username']) && empty($_SESSION['login_time'])){
   header("Location: login.php");
 }
 
 if($_POST){
+  echo $_SESSION['csrf'];
+  exit();
   if(empty($_POST['name']) || empty($_POST['email']) || empty($_POST['password'])){
     if(empty($_POST['name'])){
       $nameError= "Name cann't be null";
@@ -70,7 +73,9 @@ if($_POST){
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-        <form action="user_add.php" method="post">
+        <form action="" method="post">
+        <input name="csrf" type="hidden" value="<?php echo ($_SESSION['csrf']); ?>">
+        <!-- <input type="hidden" name="post_id" class=''> -->
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label><p style="color:red;"><?php echo !isset($nameError) ? "" : '*'.$nameError;?></p>
                 <div class="col-sm-10">

@@ -2,6 +2,7 @@
 session_start();
 
 require "config_file/config.php";
+require "config_file/common.php";
 
 if($_POST){
   if(empty($_POST['name']) || empty($_POST['email']) || empty($_POST['password'])){
@@ -69,6 +70,7 @@ if($_POST){
   <div class="card">
     <div class="card-body login-card-body">
     <form action="register.php" method="post" enctype="" autocomplete="off">
+            <input name="csrf" type="hidden" value="<?php echo ($_SESSION['csrf']); ?>">
             <div class="form-group">
                 <label for="name">Name</label><p style="color:red;"><?php echo !isset($nameError) ? "" : '*'.$nameError;?></p>
                 <input type="text" name="name" class="form-control"  value="">
