@@ -90,15 +90,15 @@ session_start();
                         <input type="hidden" name="id" class=''>
                         <div class="form-group">
                             <label for="name">Name</label><p style="color:red;"><?php echo !isset($nameError) ? "" : '*'.$nameError;?></p>
-                            <input type="text" name="name" class="form-control"  value="<?php echo $result['name']?>">
+                            <input type="text" name="name" class="form-control"  value="<?php echo escape($result['name'])?>">
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label><p style="color:red;"><?php echo !isset($emailError) ? "" : '*'.$emailError;?></p>
-                            <input type="email" name="email" class="form-control"  value="<?php echo $result['email']?>">
+                            <input type="email" name="email" class="form-control"  value="<?php echo escape($result['email'])?>">
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label><p style="color:red;"><?php echo !isset($passwordError) ? "" : '*'.$passwordError;?></p>
-                            <input type="password" name="password" class="form-control"  value="<?php echo $result['password']?>">
+                            <input type="password" name="password" class="form-control"  value="<?php echo escape($result['password'])?>">
                         </div>
                         <fieldset class="form-group" required>
                             <div class="row">

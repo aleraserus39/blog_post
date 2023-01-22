@@ -76,7 +76,7 @@ if(isset($_POST['comment']) && ! empty($_POST['comment'])){
             <div class="card card-widget">
               <div class="card-header">
                 <div class="user-block" style="">
-                  <h3><?php echo $postResult['title']?></h3>
+                  <h3><?php echo escape($postResult['title'])?></h3>
                 </div>
                 <!-- /.user-block -->
                 <div class="card-tools">
@@ -94,8 +94,8 @@ if(isset($_POST['comment']) && ! empty($_POST['comment'])){
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <img class="img-fluid pad" src="images/<?php echo $postResult['image']?>" alt="Photo" style="width:100%;height:600px;object-fit:cover;"><br/><br>
-                <p><?php echo $postResult['content']?></p>
+                <img class="img-fluid pad" src="images/<?php echo escape($postResult['image'])?>" alt="Photo" style="width:100%;height:600px;object-fit:cover;"><br/><br>
+                <p><?php echo escape($postResult['content'])?></p>
                 <h2>Comments<a href="index.php" type="button" class="btn btn-default btn-inline">Back</a></h2><hr/>
                 <div class="card-footer card-comments">
                 
@@ -128,7 +128,7 @@ if(isset($_POST['comment']) && ! empty($_POST['comment'])){
                         <?php echo $authorArr[$key][0]['name'];?>
                         <span class="text-muted float-right"><?php  echo $value['created_at'];?></span>
                       </span>
-                      <?php echo $value['content'];?>
+                      <?php echo escape($value['content']);?>
                     <?php
                       }
                 

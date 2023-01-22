@@ -100,15 +100,15 @@ if($_POST){
                         <input type="hidden" name="post_id" class=''>
                         <div class="form-group">
                             <label for="title">Title</label><p style="color:red;"><?php echo !isset($titleError) ? "" : '*'.$titleError;?></p>
-                            <input type="text" name="title" class="form-control" required value="<?php echo $result['title']?>">
+                            <input type="text" name="title" class="form-control" required value="<?php echo escape($result['title'])?>">
                         </div>
                         <div class="form-group">
                             <label for="content">Content</label><p style="color:red;"><?php echo !isset($contentError) ? "" : '*'.$contentError;?></p>
-                            <textarea class="form-control"  rows="5" name='content' required ><?php echo $result['content']?></textarea>
+                            <textarea class="form-control"  rows="5" name='content' required ><?php echo escape($result['content'])?></textarea>
                         </div>
                         <div class="form-group">
                             <label for="image">Update Image</label><br/>
-                            <img src="../images/<?php echo $result['image'] ?>" alt="" width='100' height='100'><br/><br/>
+                            <img src="../images/<?php echo escape($result['image']) ?>" alt="" width='100' height='100'><br/><br/>
                             <input type="file" name="image"  class="" >
                         </div>
                         <input type="submit" name="submit" class="btn btn-success" value="SUBMIT">

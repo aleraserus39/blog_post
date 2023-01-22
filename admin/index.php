@@ -1,6 +1,7 @@
 <?php 
 session_start();
 require "../config_file/config.php";
+require "../config_file/common.php";
 
 if(empty($_SESSION['username']) && empty($_SESSION['login_time'])){
   header("Location: login.php");
@@ -107,8 +108,8 @@ if(!empty($_POST['search'])){
                   ?>
                      <tr>
                       <td><?php echo $i?></td>
-                      <td><?php echo $value['title']?></td>
-                      <td><?php echo substr($value['content'],0,50)?></td>
+                      <td><?php echo escape($value['title'])?></td>
+                      <td><?php echo escape(substr($value['content'],0,50))?></td>
                       <td>
                         <!-- <a href="#" class="">Edit</a>
                         <a href="#" class="btn btn-danger">Delete</a> -->

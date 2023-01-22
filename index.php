@@ -1,6 +1,7 @@
 <?php 
 session_start();
 require "config_file/config.php";
+require "config_file/common.php";
 
 if(empty($_SESSION['user_id']) && empty($_SESSION['login_time'])){
   header("Location: login.php");
@@ -74,7 +75,7 @@ if(empty($_SESSION['user_id']) && empty($_SESSION['login_time'])){
               <div class="card card-widget">
                 <div class="card-header">
                   <div class="user-block" style="">
-                    <h3><?php echo $value['title']?></h3>
+                    <h3><?php echo escape($value['title'])?></h3>
                   </div>
                   <!-- /.user-block -->
                   <div class="card-tools">
