@@ -46,6 +46,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           ?>
           <!-- form  -->
           <form class="form-inline" method="post" action="<?php echo $page == 'index.php' ? 'index.php' : 'user_list.php'  ?>">
+          <input name="csrf" type="hidden" value="<?php echo ($_SESSION['csrf']); ?>">
             <div class="input-group input-group-sm">
               <input name='search' class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
               <div class="input-group-append">

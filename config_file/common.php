@@ -1,5 +1,13 @@
 <?php 
 
+if($_SERVER['REQUEST_METHOD']==='POST'){
+	if(!hash_equals($_SESSION['csrf'], $_POST['csrf'])){
+		echo "Invalid CSRF token!";
+		die();
+	}else{
+		unset($_SESSION['csrf']);
+	}
+}
 
 if (empty($_SESSION['csrf'])) {
 	if (function_exists('random_bytes')) {
@@ -12,14 +20,8 @@ if (empty($_SESSION['csrf'])) {
 }
 
 
-if($_SERVER['REQUEST_METHOD']==='POST'){
-	if(!hash_equals($_SESSION['csrf'], $_POST['csrf'])){
-		echo "Invalid CSRF token!";
-		die();
-	}else{
-		unset($_SESSION['csrf']);
-	}
-}
+
+
 
 // escape HTML for output
 
